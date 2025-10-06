@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LangGraph Assistant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .chat-box { max-height: 400px; overflow-y: auto; }
+    .msg-user { text-align: right; }
+    .msg-user .msg { background: #d1e7dd; display: inline-block; padding: 10px; border-radius: 10px; }
+    .msg-assistant { text-align: left; }
+    .msg-assistant .msg { background: #f8d7da; display: inline-block; padding: 10px; border-radius: 10px; }
+  </style>
+</head>
+<body class="container py-5">
+
+  <h1 class="mb-4">LangGraph Assistant</h1>
+
+  <!-- File Upload -->
+  <form method="POST" enctype="multipart/form-data" class="mb-4">
+    <label class="form-label">Upload PDF or Excel:</label>
+    <input type="file" name="file" class="form-control mb-2" accept=".pdf,.xls,.xlsx">
+    <button type="submit" class="btn btn-success">Upload & Process</button>
+  </form>
+
+  <!-- Q&A / Summarize -->
+  <form method="POST" class="mb-4">
+    <div class="mb-3">
+      <textarea name="input" class="form-control" rows="4" placeholder="Ask a question or paste text..." required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="mode" class="form-label">Mode</label>
+      <select name="mode" id="mode" class="form-select">
+        <option value="rag">RAG (Ask from Docs)</option>
+        <option value="summarize">Summarize</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  {% if answer %}
+    <div class="card p-3 mb-4">
+      <h5>Latest Answer:</h5>
+      <p>{{ answer }}</p>
+    </div>
+  {% endif %}
+
+  {% if chat_history %}
+    <div class="card p-3 chat-box">
+      <h5>Chat History</h5>
+      {% for msg in chat_history %}
+        {% if msg.type == "human" %}
+          <div class="msg-user mb-2">
+            <div class="msg"><b>You:</b> {{ msg.content }}</div>
+          </div>
+        {% else %}
+          <div class="msg-assistant mb-2">
+            <div class="msg"><b>Assistant:</b> {{ msg.content }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</body>
+</html>
