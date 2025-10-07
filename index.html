@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>LangGraph Assistant</title>
@@ -15,15 +15,15 @@
 
   <h1 class="mb-4">LangGraph Assistant</h1>
 
-  <!-- File Upload -->
-  <form method="POST" enctype="multipart/form-data" class="mb-4">
+  File Upload -->
+  <!-- <form method="POST" enctype="multipart/form-data" class="mb-4">
     <label class="form-label">Upload PDF or Excel:</label>
     <input type="file" name="file" class="form-control mb-2" accept=".pdf,.xls,.xlsx">
     <button type="submit" class="btn btn-success">Upload & Process</button>
-  </form>
+  </form> -->
 
   <!-- Q&A / Summarize -->
-  <form method="POST" class="mb-4">
+  <!-- <form method="POST" class="mb-4">
     <div class="mb-3">
       <textarea name="input" class="form-control" rows="4" placeholder="Ask a question or paste text..." required></textarea>
     </div>
@@ -64,4 +64,171 @@
   {% endif %}
 
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📄 DocTalk </title>
+  <style>
+    /* ---------- Base Styles ---------- */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    /* ---------- Container ---------- */
+    .container {
+      background: #fff;
+      max-width: 700px;
+      width: 90%;
+      margin: 50px auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* ---------- Header ---------- */
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, #007BFF, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ---------- Form Styling ---------- */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #444;
+    }
+
+    input[type="file"],
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+
+    /* ---------- Buttons ---------- */
+    button {
+      background: linear-gradient(90deg, #007BFF, #00c6ff);
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: #eee;
+      margin: 20px 0;
+    }
+
+    /* ---------- Response Box ---------- */
+    .response {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-left: 5px solid #007BFF;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #333;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      animation: fadeIn 0.6s ease;
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      input[type="text"] {
+        font-size: 0.9rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📄 DocTALK </h2>
+
+    <!-- Upload PDF -->
+    <form method="POST" enctype="multipart/form-data">
+      <label>Upload PDF:</label>
+      <input type="file" name="file" accept=".pdf" required>
+      <button type="submit">📤 Upload</button>
+    </form>
+
+    <hr>
+
+    <!-- User Prompt -->
+    <form method="POST">
+      <label>Enter your prompt:</label>
+      <input type="text" name="prompt" placeholder="e.g. Summarize this document or Generate questions..." required>
+      <button type="submit">🚀 Run</button>
+    </form>
+
+    <hr>
+
+    <!-- Response -->
+    {% if response %}
+    <div class="response">
+      {{ response }}
+    </div>
+    {% endif %}
+  </div>
+</body>
 </html>
+
+
